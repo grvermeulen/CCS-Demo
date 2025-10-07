@@ -278,9 +278,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1",
+          "value": "gpt-5-mini",
           "mode": "list",
-          "cachedResultName": "gpt-4.1"
+          "cachedResultName": "gpt-5-mini"
         },
         "options": {}
       },
@@ -722,9 +722,9 @@
       "parameters": {
         "model": {
           "__rl": true,
-          "value": "gpt-4.1",
+          "value": "gpt-5-mini",
           "mode": "list",
-          "cachedResultName": "gpt-4.1"
+          "cachedResultName": "gpt-5-mini"
         },
         "options": {}
       },
