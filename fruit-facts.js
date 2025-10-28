@@ -52,6 +52,24 @@ const FRUIT_FACTS = {
       "Supports skin health"
     ],
     season: "Peak season from November to March"
+  },
+  fruitcake: {
+    nutrition: {
+      calories: "423 kcal",
+      fiber: "3.2g",
+      protein: "5.1g"
+    },
+    facts: [
+      "Fruitcakes were historically considered a symbol of fertility and prosperity",
+      "The tradition of fruitcake dates back to ancient Rome where they were made with pomegranate seeds, pine nuts, and raisins",
+      "Some fruitcakes are aged for years to develop flavor depth"
+    ],
+    benefits: [
+      "Rich in energy-dense dried fruits",
+      "Provides sustained energy from complex carbohydrates",
+      "Contains nuts which are a good source of healthy fats"
+    ],
+    season: "Popular during holiday season (November to December)"
   }
 };
 
@@ -81,12 +99,17 @@ function createFactsSection(fruit) {
               <span class="nutrition-value">${facts.nutrition.vitamin_c}</span>
               <span class="nutrition-label">Vitamin C</span>
             </div>
-          ` : `
+          ` : facts.nutrition.potassium ? `
             <div class="nutrition-item">
               <span class="nutrition-value">${facts.nutrition.potassium}</span>
               <span class="nutrition-label">Potassium</span>
             </div>
-          `}
+          ` : facts.nutrition.protein ? `
+            <div class="nutrition-item">
+              <span class="nutrition-value">${facts.nutrition.protein}</span>
+              <span class="nutrition-label">Protein</span>
+            </div>
+          ` : ''}
         </div>
       </div>
 
