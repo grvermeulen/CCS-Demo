@@ -115,6 +115,10 @@ input[type="text"]:focus {
   color: #444;
   font-weight: 600;
   letter-spacing: 0.3px;
+  text-align: center;
+  max-width: 28ch;
+  margin-left: auto;
+  margin-right: auto;
 }
 .logo-img:hover,
 .basket-img:hover {
