@@ -52,6 +52,24 @@ const FRUIT_FACTS = {
       "Supports skin health"
     ],
     season: "Peak season from November to March"
+  },
+  cucumber: {
+    nutrition: {
+      calories: "16 kcal",
+      fiber: "0.5g",
+      vitamin_c: "4% DV"
+    },
+    facts: [
+      "Cucumbers are about 95% water",
+      "They belong to the same family as melons and pumpkins",
+      "The skin contains many of the cucumber's nutrients"
+    ],
+    benefits: [
+      "Helps with hydration",
+      "Low in calories, great for snacks",
+      "Contains antioxidants"
+    ],
+    season: "Best from late spring to early fall"
   }
 };
 
