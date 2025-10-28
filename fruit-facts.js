@@ -53,6 +53,25 @@ const FRUIT_FACTS = {
     ],
     season: "Peak season from November to March"
   }
+  ,
+  strawberry: {
+    nutrition: {
+      calories: "33 kcal",
+      fiber: "2.0g",
+      vitamin_c: "97% DV"
+    },
+    facts: [
+      "Strawberries are the first fruit to ripen in spring",
+      "Each strawberry has, on average, 200 seeds on its surface",
+      "They are members of the rose family"
+    ],
+    benefits: [
+      "Rich in vitamin C and antioxidants",
+      "Supports heart health",
+      "May help regulate blood sugar"
+    ],
+    season: "Best from April to June"
+  }
 };
 
 function getFruitFacts(fruit) {
