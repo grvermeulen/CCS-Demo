@@ -131,6 +131,51 @@ FRUIT_FACTS.strawberry = {
   season: "Peak season from April to June"
 };
 
+FRUIT_FACTS.kiwi = {
+  nutrition: { calories: "42 kcal", fiber: "2.1g", vitamin_c: "154% DV" },
+  facts: [
+    "Originally called Chinese gooseberry",
+    "Contains more vitamin C than oranges",
+    "The skin is edible and nutritious"
+  ],
+  benefits: [
+    "Boosts immune system",
+    "Supports digestive health",
+    "Rich in vitamin C"
+  ],
+  season: "Available year-round"
+};
+
+FRUIT_FACTS.pineapple = {
+  nutrition: { calories: "50 kcal", fiber: "1.4g", vitamin_c: "79% DV" },
+  facts: [
+    "Takes 18-20 months to mature",
+    "Contains bromelain enzyme",
+    "Named for resembling pine cones"
+  ],
+  benefits: [
+    "Aids digestion",
+    "Supports immune function",
+    "Anti-inflammatory properties"
+  ],
+  season: "Peak season from March to July"
+};
+
+FRUIT_FACTS.mango = {
+  nutrition: { calories: "60 kcal", fiber: "1.6g", vitamin_c: "67% DV" },
+  facts: [
+    "National fruit of India",
+    "Over 1000 varieties worldwide",
+    "Related to cashews and pistachios"
+  ],
+  benefits: [
+    "Rich in vitamin A",
+    "Supports eye health",
+    "Boosts immune system"
+  ],
+  season: "Peak season from April to August"
+};
+
 function getFruitFacts(fruit) {
   return FRUIT_FACTS[fruit] || null;
 }
