@@ -23,8 +23,13 @@ const BUNDLES = {
   },
   fruit_feast: {
     name: "Fruit Feast",
-    products: ["apple", "banana", "lemon"],
-    emoji: "🍏🍌🍋"
+    products: ["apple", "banana", "lemon", "strawberry"],
+    emoji: "🍏🍌🍋🍓"
+  },
+  berry_blast: {
+    name: "Berry Blast",
+    products: ["strawberry", "banana"],
+    emoji: "🍓🍌"
   }
 };
 
