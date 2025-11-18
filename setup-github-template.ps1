@@ -132,17 +132,27 @@ if (Test-Path $repoName) {
         # Check if there are any changes to commit
         $changes = git status --porcelain
         if ($changes) {
+            Write-Host "Staging changes..." -ForegroundColor Cyan
             git add -A
-            git commit -m "feat: Footer CCS Woerden (Issue #19) - copied from template" 2>&1 | Out-Null
-            Write-Host "Changes committed to branch." -ForegroundColor Green
+            if ($LASTEXITCODE -ne 0) {
+                Write-Host "Warning: Failed to stage changes. Continuing anyway..." -ForegroundColor Yellow
+            }
             
-            # Verify the branch is based on main
-            $mergeBase = git merge-base main $branchName
-            $mainCommit = git rev-parse main
-            if ($mergeBase -eq $mainCommit) {
-                Write-Host "Branch correctly based on main." -ForegroundColor Green
+            Write-Host "Committing changes..." -ForegroundColor Cyan
+            git commit -m "feat: Footer CCS Woerden (Issue #19) - copied from template" 2>&1 | Out-Null
+            if ($LASTEXITCODE -eq 0) {
+                Write-Host "Changes committed to branch." -ForegroundColor Green
+                
+                # Verify the branch is based on main
+                $mergeBase = git merge-base main $branchName
+                $mainCommit = git rev-parse main
+                if ($mergeBase -eq $mainCommit) {
+                    Write-Host "Branch correctly based on main." -ForegroundColor Green
+                } else {
+                    Write-Host "Warning: Branch may not share history with main correctly." -ForegroundColor Yellow
+                }
             } else {
-                Write-Host "Warning: Branch may not share history with main correctly." -ForegroundColor Yellow
+                Write-Host "Error: Failed to commit changes. The branch may not have the expected changes." -ForegroundColor Red
             }
         } else {
             Write-Host "No changes to apply from template branch." -ForegroundColor Yellow
