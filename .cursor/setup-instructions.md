@@ -40,3 +40,39 @@ When a user asks to set up their GitHub repository, follow these steps:
 - The script will handle GitHub authentication interactively if needed
 - Provide clear status updates at each step
 
+## Additional: GitHub API Token Creation for n8n
+
+When a user asks to create a GitHub API token for n8n, follow these steps:
+
+1. **Check GitHub CLI authentication:**
+   - Run: `gh auth status`
+   - If not authenticated, run: `gh auth login`
+
+2. **Try to refresh authentication with required scopes:**
+   - Run: `gh auth refresh -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook`
+   - This will open a browser for user to authorize the new scopes
+   - Wait for user to complete authorization
+
+3. **Get the token:**
+   - Run: `gh auth token`
+   - Display the token to the user
+   - Warn them to save it securely (they'll need it for n8n)
+
+4. **If refresh fails or user prefers manual creation:**
+   - Guide user to: https://github.com/settings/tokens
+   - Instruct them to:
+     - Click "Generate new token" -> "Generate new token (classic)"
+     - Name it (e.g., "n8n-workshop-token")
+     - Select expiration
+     - Select scopes: repo, workflow, admin:org, admin:repo_hook, admin:org_hook
+     - Click "Generate token"
+     - Copy the token immediately (only shown once!)
+
+5. **Verify token (optional):**
+   - Test the token: `gh auth token | gh api user` (if using CLI token)
+   - Or verify scopes in GitHub settings
+
+6. **Provide the token to the user:**
+   - Display it clearly
+   - Remind them it's needed for n8n GitHub node configuration
+
