@@ -23,7 +23,7 @@ Write-Host ""
 
 # 2. Authenticate (if not already)
 Write-Host "Checking GitHub authentication..." -ForegroundColor Cyan
-gh auth status 2>&1 | Out-Null
+$null = gh auth status 2>&1
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Not authenticated. Please authenticate with GitHub..." -ForegroundColor Yellow
     gh auth login
@@ -59,7 +59,8 @@ if ($args.Count -gt 0 -and ![string]::IsNullOrWhiteSpace($args[0])) {
 }
 
 # Check if repository already exists
-gh repo view "$username/$repoName" 2>&1 | Out-Null
+$repoExists = $false
+$null = gh repo view "$username/$repoName" 2>&1
 if ($LASTEXITCODE -eq 0) {
     Write-Host "Repository $username/$repoName already exists!" -ForegroundColor Yellow
     $overwrite = Read-Host "Do you want to use the existing repository? (y/n)"
@@ -67,6 +68,7 @@ if ($LASTEXITCODE -eq 0) {
         Write-Host "Exiting. Please choose a different repository name." -ForegroundColor Red
         exit 1
     }
+    $repoExists = $true
 } else {
     Write-Host "Creating repository: $repoName from template..." -ForegroundColor Cyan
     gh repo create $repoName --template grvermeulen/CCS-Demo --public --clone
@@ -75,111 +77,123 @@ if ($LASTEXITCODE -eq 0) {
         exit 1
     }
     Write-Host "Repository created successfully!" -ForegroundColor Green
+}
+
+# Fetch specific branch from template and create PR
+# This logic runs for both new and existing repositories
+Write-Host ""
+Write-Host "Fetching branch from template repository..." -ForegroundColor Cyan
+
+# For existing repos, clone if not already cloned locally
+if ($repoExists -and !(Test-Path $repoName)) {
+    Write-Host "Cloning existing repository..." -ForegroundColor Cyan
+    gh repo clone "$username/$repoName"
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Failed to clone repository. Exiting." -ForegroundColor Red
+        exit 1
+    }
+}
+
+# Navigate to cloned repository
+if (Test-Path $repoName) {
+    Push-Location $repoName
     
-    # Fetch specific branch from template and create PR
-    Write-Host ""
-    Write-Host "Fetching branch from template repository..." -ForegroundColor Cyan
+    # Add template repository as remote (remove first if it exists)
+    Write-Host "Adding template repository as remote..." -ForegroundColor Cyan
+    git remote remove template 2>&1 | Out-Null
+    git remote add template https://github.com/grvermeulen/CCS-Demo.git 2>&1 | Out-Null
     
-    # Navigate to cloned repository
-    if (Test-Path $repoName) {
-        Push-Location $repoName
+    # Fetch the specific branch
+    $branchName = "feat/footer-ccs-woerden-issue-19"
+    Write-Host "Fetching branch: $branchName from template..." -ForegroundColor Cyan
+    git fetch template $branchName
+    
+    if ($LASTEXITCODE -eq 0) {
+        # Ensure we're on main first
+        git checkout main 2>&1 | Out-Null
         
-        # Add template repository as remote
-        Write-Host "Adding template repository as remote..." -ForegroundColor Cyan
-        git remote add template https://github.com/grvermeulen/CCS-Demo.git 2>&1 | Out-Null
+        # Delete branch if it exists locally
+        git branch -D $branchName 2>&1 | Out-Null
         
-        # Fetch the specific branch
-        $branchName = "feat/footer-ccs-woerden-issue-19"
-        Write-Host "Fetching branch: $branchName from template..." -ForegroundColor Cyan
-        git fetch template $branchName
+        # Create a fresh branch from main to ensure shared history
+        Write-Host "Creating branch from main..." -ForegroundColor Cyan
+        git checkout -b $branchName main
+        
+        # Get the list of files that differ between template branch and template main
+        Write-Host "Identifying changes from template branch..." -ForegroundColor Cyan
+        
+        # Fetch template's main branch for comparison
+        git fetch template main 2>&1 | Out-Null
+        
+        # Copy all files from the template branch (this overwrites with template branch versions)
+        Write-Host "Applying changes from template branch..." -ForegroundColor Cyan
+        git checkout template/$branchName -- . 2>&1 | Out-Null
+        
+        # Check if there are any changes to commit
+        $changes = git status --porcelain
+        if ($changes) {
+            git add -A
+            git commit -m "feat: Footer CCS Woerden (Issue #19) - copied from template" 2>&1 | Out-Null
+            Write-Host "Changes committed to branch." -ForegroundColor Green
+            
+            # Verify the branch is based on main
+            $mergeBase = git merge-base main $branchName
+            $mainCommit = git rev-parse main
+            if ($mergeBase -eq $mainCommit) {
+                Write-Host "Branch correctly based on main." -ForegroundColor Green
+            } else {
+                Write-Host "Warning: Branch may not share history with main correctly." -ForegroundColor Yellow
+            }
+        } else {
+            Write-Host "No changes to apply from template branch." -ForegroundColor Yellow
+        }
+        
+        # Delete remote branch if it exists to ensure clean push
+        git push origin --delete $branchName 2>&1 | Out-Null
+        
+        # Push the branch to the repository
+        Write-Host "Pushing branch to your repository..." -ForegroundColor Cyan
+        git push -u origin $branchName
         
         if ($LASTEXITCODE -eq 0) {
-            # Ensure we're on main first
-            git checkout main
-            
-            # Delete branch if it exists locally
-            git branch -D $branchName 2>&1 | Out-Null
-            
-            # Create a fresh branch from main to ensure shared history
-            Write-Host "Creating branch from main..." -ForegroundColor Cyan
-            git checkout -b $branchName main
-            
-            # Get the list of files that differ between template branch and template main
-            Write-Host "Identifying changes from template branch..." -ForegroundColor Cyan
-            
-            # Fetch template's main branch for comparison
-            git fetch template main 2>&1 | Out-Null
-            
-            # Copy all files from the template branch (this overwrites with template branch versions)
-            Write-Host "Applying changes from template branch..." -ForegroundColor Cyan
-            git checkout template/$branchName -- . 2>&1 | Out-Null
-            
-            # Check if there are any changes to commit
-            $changes = git status --porcelain
-            if ($changes) {
-                git add -A
-                git commit -m "feat: Footer CCS Woerden (Issue #19) - copied from template" 2>&1 | Out-Null
-                Write-Host "Changes committed to branch." -ForegroundColor Green
-                
-                # Verify the branch is based on main
-                $mergeBase = git merge-base main $branchName
-                $mainCommit = git rev-parse main
-                if ($mergeBase -eq $mainCommit) {
-                    Write-Host "Branch correctly based on main." -ForegroundColor Green
-                } else {
-                    Write-Host "Warning: Branch may not share history with main correctly." -ForegroundColor Yellow
-                }
-            } else {
-                Write-Host "No changes to apply from template branch." -ForegroundColor Yellow
-            }
-            
-            # Delete remote branch if it exists to ensure clean push
-            git push origin --delete $branchName 2>&1 | Out-Null
-            
-            # Push the branch to the new repository
-            Write-Host "Pushing branch to your repository..." -ForegroundColor Cyan
-            git push -u origin $branchName
-            
-            if ($LASTEXITCODE -eq 0) {
-                # Create a pull request using GitHub CLI
-                Write-Host "Creating pull request..." -ForegroundColor Cyan
-                $prTitle = "feat: Footer CCS Woerden (Issue #19)"
-                $prBody = @"
+            # Create a pull request using GitHub CLI
+            Write-Host "Creating pull request..." -ForegroundColor Cyan
+            $prTitle = "feat: Footer CCS Woerden (Issue #19)"
+            $prBody = @"
 This pull request was automatically created from the template repository branch.
 
 **Source:** feat/footer-ccs-woerden-issue-19 from grvermeulen/CCS-Demo
 
 This branch contains the footer implementation for CCS Woerden as referenced in issue #19.
 "@
-                
-                gh pr create --repo "$username/$repoName" `
-                    --title $prTitle `
-                    --body $prBody `
-                    --base main `
-                    --head $branchName
-                
-                if ($LASTEXITCODE -eq 0) {
-                    Write-Host "Pull request created successfully!" -ForegroundColor Green
-                } else {
-                    Write-Host "Warning: Failed to create pull request. You can create it manually." -ForegroundColor Yellow
-                }
-            } else {
-                Write-Host "Warning: Failed to push branch. You can push it manually." -ForegroundColor Yellow
-            }
             
-            # Switch back to main branch
-            git checkout main
+            gh pr create --repo "$username/$repoName" `
+                --title $prTitle `
+                --body $prBody `
+                --base main `
+                --head $branchName
+            
+            if ($LASTEXITCODE -eq 0) {
+                Write-Host "Pull request created successfully!" -ForegroundColor Green
+            } else {
+                Write-Host "Warning: Failed to create pull request. You can create it manually." -ForegroundColor Yellow
+            }
         } else {
-            Write-Host "Warning: Failed to fetch branch from template. It may not exist." -ForegroundColor Yellow
+            Write-Host "Warning: Failed to push branch. You can push it manually." -ForegroundColor Yellow
         }
         
-        # Remove template remote (cleanup)
-        git remote remove template 2>&1 | Out-Null
-        
-        Pop-Location
+        # Switch back to main branch
+        git checkout main 2>&1 | Out-Null
     } else {
-        Write-Host "Warning: Repository directory not found. Skipping branch fetch." -ForegroundColor Yellow
+        Write-Host "Warning: Failed to fetch branch from template. It may not exist." -ForegroundColor Yellow
     }
+    
+    # Remove template remote (cleanup)
+    git remote remove template 2>&1 | Out-Null
+    
+    Pop-Location
+} else {
+    Write-Host "Warning: Repository directory not found. Skipping branch fetch." -ForegroundColor Yellow
 }
 
 Write-Host ""
