@@ -11,17 +11,76 @@
   - [Airtop](https://www.airtop.ai/)
   - [Vercel](https://vercel.com/)
 
-- Fork repository & Add SCRUM issue:
-  - https://github.com/grvermeulen/CCS-Demo
-  - Untick "main branch only"
-  - Enable the "Issues" tab for forked repositories (Setting > General > Features > Issues)
-  - Write your own scrum issue or copy an example from the repository
-  - If you really want to go all out agentic; install github cli: winget install --id GitHub.cli (https://github.com/cli/cli/releases)
+- Create repository from template & Add SCRUM issue:
+  - **Option 1 (Cursor IDE - Recommended):** 
+    
+    If you only have Cursor IDE installed, simply copy and paste this prompt into Cursor:
+    
+    ```
+    Please set up my GitHub repository. I only have Cursor IDE installed - no PowerShell or GitHub CLI yet.
+
+    Steps to follow:
+
+    1. Detect my operating system (Windows/Mac/Linux)
+
+    2. Check for PowerShell/PowerShell Core and install if missing
+
+    3. Check for GitHub CLI and install if missing
+
+    4. Authenticate with GitHub (gh auth login)
+
+    5. Download setup-github-template.ps1 from: https://raw.githubusercontent.com/grvermeulen/CCS-Demo/main/setup-github-template.ps1
+
+    6. Ask me what I want to name my repository
+
+    7. Run: powershell -ExecutionPolicy Bypass -File .\setup-github-template.ps1 "REPO_NAME" (Windows) or pwsh -File ./setup-github-template.ps1 "REPO_NAME" (Mac/Linux)
+
+    8. Verify repository, PR, and issue were created
+
+    9. Provide me with the repository URL
+
+    Handle any errors gracefully and guide me through any required user interactions.
+    ```
+    
+    Cursor will handle everything automatically!
+  
+  - **Option 2 (Manual - Quick Start):**
+    1. Clone the template repository to get the setup script:
+       ```bash
+       gh repo clone grvermeulen/CCS-Demo temp-setup
+       cd temp-setup
+       ```
+    2. Run the setup script:
+       ```powershell
+       # Windows
+       powershell -ExecutionPolicy Bypass -File .\setup-github-template.ps1
+       
+       # Mac/Linux
+       pwsh -File ./setup-github-template.ps1
+       ```
+    3. The script will:
+       - Create your new repository from the template
+       - Clone it automatically
+       - Fetch the feat/footer-ccs-woerden-issue-19 branch
+       - Create a pull request
+       - Create a sample scrum issue
+    4. (Optional) Delete the temporary template clone:
+       ```bash
+       cd ..
+       rm -rf temp-setup  # or rmdir /s temp-setup on Windows
+       ```
+  
+  - **Option 3 (Manual - GitHub UI):**
+    - Go to https://github.com/grvermeulen/CCS-Demo
+    - Click "Use this template" button (top right)
+    - Create a new repository with your preferred name
+    - Clone your new repository
+    - The setup script is included - run it to set up the branch and PR
 
 - [Connect your Vercel account to the GitHub repository](https://vercel.com/docs/git#deploying-a-git-repository)
   - Within Vercel, top right click "Add New..."
   - Select "Project"
-  - Select the forked repository
+  - Select your repository (created from template)
   - Import
   - Deploy
 
@@ -30,6 +89,64 @@
   - Go to "Deployment Protection"
   - Switch off protection for the demo repository.
 
+- Create GitHub API Token (for n8n):
+  - **Option 1 (Cursor IDE - Recommended):** 
+    
+    Copy and paste this prompt into Cursor:
+    
+    ```
+    Please help me create a GitHub API token with the required scopes for n8n.
+
+    Steps to follow:
+
+    1. Check if GitHub CLI is authenticated (gh auth status)
+
+    2. Try to refresh authentication with required scopes:
+       gh auth refresh -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook
+
+    3. Get the token: gh auth token
+
+    4. If refresh doesn't work, guide me through creating a token manually:
+       - Open: https://github.com/settings/tokens
+       - Click "Generate new token" -> "Generate new token (classic)"
+       - Name it (e.g., "n8n-workshop-token")
+       - Select these scopes: repo, workflow, admin:org, admin:repo_hook, admin:org_hook
+       - Click "Generate token"
+       - Copy the token (it's only shown once!)
+
+    5. Verify the token has the required scopes by testing it
+
+    6. Provide me with the token (I'll need it for n8n configuration)
+
+    Handle any errors gracefully and guide me through the process.
+    ```
+  
+  - **Option 2 (Manual - GitHub CLI):**
+    1. Refresh your GitHub CLI authentication with required scopes:
+       ```bash
+       gh auth refresh -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook
+       ```
+    2. Get your token:
+       ```bash
+       gh auth token
+       ```
+    3. Copy the token - you'll need it for n8n configuration
+  
+  - **Option 3 (Manual - Web UI):**
+    1. Go to: https://github.com/settings/tokens
+    2. Click "Generate new token" -> "Generate new token (classic)"
+    3. Name your token (e.g., "n8n-workshop-token")
+    4. Select expiration (recommended: 90 days or No expiration for workshop)
+    5. Select the following scopes:
+       - ✅ `repo` (Full control of private repositories)
+       - ✅ `workflow` (Update GitHub Action workflows)
+       - ✅ `admin:org` (Full control of orgs and teams)
+       - ✅ `admin:repo_hook` (Full control of repository hooks)
+       - ✅ `admin:org_hook` (Full control of organization hooks)
+    6. Click "Generate token"
+    7. **Important:** Copy the token immediately - it's only shown once!
+    8. Save it securely - you'll need it for n8n configuration
+
 - [Import the workflow from the GitHub repository (within n8n directory) in n8n.](https://docs.n8n.io/courses/level-one/chapter-6/)
   - Create a new workflow.
   - Use the "Import from File..." option which is under the ... menu (top right next to version history)
@@ -37,6 +154,7 @@
 - Edit the n8n pipeline with all your own credentials to connect with GitHub, Airtop and OpenAI.
   - All steps which need it should show an error icon.
   - For all GitHub nodes change the repository owner to yourself.
+  - **For GitHub credentials in n8n:** Use the token you created above
  
 - Change the node from "Start browser" to your workflow --> the name in the workflow list in the parameters must match the name of your n8n workflow
 
@@ -49,7 +167,7 @@
 
 - Create a PR to see if the workflow get executed correctly.
   - If you like to skip the above 2 steps you can create a PR for the `line-items-combined` branch.
-  - <u>Make sure to create a pull request to your fork, not the original repository. (change base repository)</u>
+  - <u>Make sure to create a pull request to your repository, not the original template repository. (change base repository)</u>
 
 - Inspect the steps within the workflow execution to see what happened.
 
