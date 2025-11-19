@@ -6,7 +6,8 @@ const globalStats = {
     personalityDistribution: {
         banana: 0,
         apple: 0,
-        lemon: 0
+        lemon: 0,
+        jackfruit: 0
     },
     impactStats: {
         treesPlanted: 0,
@@ -21,7 +22,8 @@ const quizQuestions = [
         options: [
             { text: "With lots of energy", personality: "banana", impact: "energyConscious" },
             { text: "Taking it slow and steady", personality: "apple", impact: "localProduce" },
-            { text: "With a zesty attitude", personality: "lemon", impact: "waterSaving" }
+            { text: "With a zesty attitude", personality: "lemon", impact: "waterSaving" },
+            { text: "Experimenting with creative recipes", personality: "jackfruit", impact: "culinaryInnovation" }
         ],
         fact: "Did you know? The way you start your day can affect your food choices and environmental impact!"
     },
@@ -30,7 +32,8 @@ const quizQuestions = [
         options: [
             { text: "Sports and outdoor activities", personality: "banana", impact: "activeLifestyle" },
             { text: "Reading a book in the garden", personality: "apple", impact: "sustainableLiving" },
-            { text: "Hosting a party", personality: "lemon", impact: "socialImpact" }
+            { text: "Hosting a party", personality: "lemon", impact: "socialImpact" },
+            { text: "Cooking for friends and neighbors", personality: "jackfruit", impact: "communityKitchen" }
         ],
         fact: "Fun fact: Outdoor activities can reduce your carbon footprint compared to indoor entertainment!"
     },
@@ -39,7 +42,8 @@ const quizQuestions = [
         options: [
             { text: "Energetic and fun", personality: "banana", impact: "communityEngagement" },
             { text: "Reliable and wise", personality: "apple", impact: "mentorship" },
-            { text: "Bold and refreshing", personality: "lemon", impact: "innovation" }
+            { text: "Bold and refreshing", personality: "lemon", impact: "innovation" },
+            { text: "Inventive and inclusive", personality: "jackfruit", impact: "adaptableChangemaker" }
         ],
         fact: "Did you know? Your personality type can influence your environmental awareness!"
     },
@@ -48,7 +52,8 @@ const quizQuestions = [
         options: [
             { text: "Taking immediate action", personality: "banana", impact: "directAction" },
             { text: "Planning sustainable solutions", personality: "apple", impact: "longTermPlanning" },
-            { text: "Inspiring others to change", personality: "lemon", impact: "socialInfluence" }
+            { text: "Inspiring others to change", personality: "lemon", impact: "socialInfluence" },
+            { text: "Reimagining waste into resources", personality: "jackfruit", impact: "circularEconomy" }
         ],
         fact: "Amazing fact: Individual actions, when multiplied, create significant environmental impact!"
     }
@@ -99,14 +104,30 @@ const fruitPersonalities = {
             action: "Using whole lemons reduces food waste and maximizes environmental benefits."
         },
         seasonalTip: getCurrentSeasonTip('lemon')
-    }
+      },
+      jackfruit: {
+          name: "Imaginative Jackfruit",
+          description: "You're inventive, community-minded, and love transforming bold ideas into reality—just like jackfruit adapts to both sweet and savory dishes.",
+          recommendations: ["Tropical Adventure Bundle", "Fruit Feast Bundle"],
+          healthBenefits: [
+              "Naturally high in vitamin C",
+              "Offers fiber to support digestion",
+              "Provides potassium for heart health"
+          ],
+          environmentalImpact: {
+              positive: "Jackfruit trees are resilient and thrive with minimal pesticides, making them a sustainable staple crop.",
+              action: "Support regenerative farms that cultivate jackfruit to reduce reliance on resource-heavy meat alternatives."
+          },
+          seasonalTip: getCurrentSeasonTip('jackfruit')
+      }
 };
 
 let currentQuestion = 0;
 let personalityScores = {
     banana: 0,
     apple: 0,
-    lemon: 0
+    lemon: 0,
+    jackfruit: 0
 };
 let impactScore = 0;
 
@@ -130,7 +151,13 @@ function getCurrentSeasonTip(fruit) {
             summer: "Make fresh lemonade!",
             fall: "Great for immune system!",
             winter: "Peak citrus season!"
-        }
+          },
+          jackfruit: {
+              spring: "Use young jackfruit for savory, slow-cooked meals.",
+              summer: "Enjoy ripe pods chilled for a refreshing treat.",
+              fall: "Prep meal-sized portions for hearty curries.",
+              winter: "Slow-cook jackfruit with warming spices."
+          }
     };
     return tips[fruit][season];
 }
@@ -145,7 +172,7 @@ function getCurrentSeason() {
 
 function startQuiz() {
     currentQuestion = 0;
-    personalityScores = { banana: 0, apple: 0, lemon: 0 };
+    personalityScores = { banana: 0, apple: 0, lemon: 0, jackfruit: 0 };
     impactScore = 0;
     displayQuestion();
     document.getElementById('quiz-start').style.display = 'none';
@@ -200,7 +227,11 @@ function calculateImpactScore(impact) {
         innovation: 12,
         directAction: 20,
         longTermPlanning: 18,
-        socialInfluence: 15
+        socialInfluence: 15,
+        culinaryInnovation: 16,
+        communityKitchen: 14,
+        adaptableChangemaker: 17,
+        circularEconomy: 19
     };
     return impactScores[impact] || 0;
 }
@@ -306,7 +337,7 @@ function showResult() {
 function shareResult(platform) {
     const result = Object.entries(personalityScores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
     const personality = fruitPersonalities[result];
-    const shareText = `I'm a ${personality.name} 🌟 Making a positive impact through sustainable fruit choices! Take the quiz to discover your fruit personality and environmental impact! 🌍🍎🍌🍋 #FruitPersonality #Sustainability`;
+    const shareText = `I'm a ${personality.name} 🌟 Making a positive impact through sustainable fruit choices! Take the quiz to discover your fruit personality and environmental impact! 🌍🍎🍌🍋🍈 #FruitPersonality #Sustainability`;
     
     const shareUrls = {
         twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`,

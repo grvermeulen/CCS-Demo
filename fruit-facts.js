@@ -52,6 +52,24 @@ const FRUIT_FACTS = {
       "Supports skin health"
     ],
     season: "Peak season from November to March"
+  },
+  jackfruit: {
+    nutrition: {
+      calories: "155 kcal",
+      fiber: "2.5g",
+      vitamin_c: "18% DV"
+    },
+    facts: [
+      "Jackfruit can weigh up to 80 pounds, making it the largest tree-grown fruit",
+      "Unripe jackfruit is often used as a plant-based meat alternative due to its texture",
+      "Every part of the jackfruit tree—from roots to leaves—has traditional uses in tropical regions"
+    ],
+    benefits: [
+      "Rich in vitamin C to support immunity",
+      "Provides natural sugars for sustained energy",
+      "Contains carotenoids that promote healthy vision"
+    ],
+    season: "Most abundant from March through June in tropical climates"
   }
 };
 
