@@ -14,7 +14,7 @@
 - Create repository from template & Add SCRUM issue:
   - **Option 1 (Cursor IDE - Recommended):** 
     
-    If you only have Cursor IDE installed, simply copy and paste this prompt into Cursor:
+    **If you only have Cursor IDE installed, simply copy and paste this prompt into Cursor:**
     
     ```
     Please set up my GitHub repository. I only have Cursor IDE installed - no PowerShell or GitHub CLI yet.
@@ -89,50 +89,9 @@
   - Go to "Deployment Protection"
   - Switch off protection for the demo repository.
 
-- Create GitHub API Token (for n8n):
-  - **Option 1 (Cursor IDE - Recommended):** 
-    
-    Copy and paste this prompt into Cursor:
-    
-    ```
-    Please help me create a GitHub API token with the required scopes for n8n.
-
-    Steps to follow:
-
-    1. Check if GitHub CLI is authenticated (gh auth status)
-
-    2. Try to refresh authentication with required scopes:
-       gh auth refresh -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook
-
-    3. Get the token: gh auth token
-
-    4. If refresh doesn't work, guide me through creating a token manually:
-       - Open: https://github.com/settings/tokens
-       - Click "Generate new token" -> "Generate new token (classic)"
-       - Name it (e.g., "n8n-workshop-token")
-       - Select these scopes: repo, workflow, admin:org, admin:repo_hook, admin:org_hook
-       - Click "Generate token"
-       - Copy the token (it's only shown once!)
-
-    5. Verify the token has the required scopes by testing it
-
-    6. Provide me with the token (I'll need it for n8n configuration)
-
-    Handle any errors gracefully and guide me through the process.
-    ```
-  
-  - **Option 2 (Manual - GitHub CLI):**
-    1. Refresh your GitHub CLI authentication with required scopes:
-       ```bash
-       gh auth refresh -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook
-       ```
-    2. Get your token:
-       ```bash
-       gh auth token
-       ```
-    3. Copy the token - you'll need it for n8n configuration
-  
-  - **Option 3 (Manual - Web UI):**
+- Create GitHub API Token :
+   
+  - **(Manual - Web UI):**
     1. Go to: https://github.com/settings/tokens
     2. Click "Generate new token" -> "Generate new token (classic)"
     3. Name your token (e.g., "n8n-workshop-token")
