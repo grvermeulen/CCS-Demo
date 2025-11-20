@@ -1,7 +1,15 @@
 const PRODUCTS = {
-  apple: { name: "Apple", emoji: "🍏" },
-  banana: { name: "Banana", emoji: "🍌" },
-  lemon: { name: "Lemon", emoji: "🍋" },
+  apple: { name: "Apple", emoji: "🍏", price: "€2.99", unit: "per kg" },
+  banana: { name: "Banana", emoji: "🍌", price: "€1.89", unit: "per kg" },
+  lemon: { name: "Lemon", emoji: "🍋", price: "€0.35", unit: "per stuk" },
+  pear: { name: "Pear", emoji: "🍐", price: "€3.49", unit: "per kg" },
+  melon: { name: "Melon", emoji: "🍈", price: "€2.99", unit: "per stuk" },
+  grapes: { name: "Grapes", emoji: "🍇", price: "€4.99", unit: "per kg" },
+  orange: { name: "Orange", emoji: "🍊", price: "€2.49", unit: "per kg" },
+  strawberry: { name: "Strawberry", emoji: "🍓", price: "€3.99", unit: "per bakje" },
+  kiwi: { name: "Kiwi", emoji: "🥝", price: "€0.25", unit: "per stuk" },
+  pineapple: { name: "Pineapple", emoji: "🍍", price: "€2.49", unit: "per stuk" },
+  mango: { name: "Mango", emoji: "🥭", price: "€1.99", unit: "per stuk" },
 };
 
 const BUNDLES = {
@@ -76,7 +84,7 @@ function renderBasket() {
       const product = PRODUCTS[item];
       if (product) {
         const li = document.createElement("li");
-        li.innerHTML = `<span class='basket-emoji'>${product.emoji}</span> <span>${product.name}</span>`;
+        li.innerHTML = `<span class='basket-emoji'>${product.emoji}</span> <span>${product.name}</span> <span class='product-price'>${product.price}</span> <span class='product-unit'>${product.unit}</span>`;
         basketList.appendChild(li);
       }
     }

@@ -55,6 +55,127 @@ const FRUIT_FACTS = {
   }
 };
 
+// Extended fruits
+FRUIT_FACTS.pear = {
+  nutrition: { calories: "101 kcal", fiber: "5.5g", vitamin_c: "12% DV" },
+  facts: [
+    "Pears ripen best off the tree",
+    "They belong to the rose family",
+    "Bartlett is the most common pear variety"
+  ],
+  benefits: [
+    "High in dietary fiber",
+    "Supports gut health",
+    "Naturally hydrating"
+  ],
+  season: "Best from August to October"
+};
+
+FRUIT_FACTS.melon = {
+  nutrition: { calories: "60 kcal", fiber: "1.6g", vitamin_c: "65% DV" },
+  facts: [
+    "Cantaloupe and honeydew are popular melons",
+    "Melons are over 90% water",
+    "Ancient Egyptians cultivated melons"
+  ],
+  benefits: [
+    "Excellent hydration",
+    "Rich in vitamin C",
+    "Low calorie snack"
+  ],
+  season: "Peak season in summer"
+};
+
+FRUIT_FACTS.grapes = {
+  nutrition: { calories: "62 kcal", fiber: "0.8g", vitamin_c: "6% DV" },
+  facts: [
+    "Grapes are one of the oldest cultivated crops",
+    "Seedless grapes are created through selective breeding",
+    "Grapes grow in clusters called bunches"
+  ],
+  benefits: [
+    "Contain resveratrol antioxidants",
+    "Support heart health",
+    "Good source of hydration"
+  ],
+  season: "Best from August to October"
+};
+
+FRUIT_FACTS.orange = {
+  nutrition: { calories: "62 kcal", fiber: "3.1g", vitamin_c: "92% DV" },
+  facts: [
+    "Oranges are a hybrid of pomelo and mandarin",
+    "Navel oranges have a small secondary fruit inside",
+    "Brazil is the largest orange producer"
+  ],
+  benefits: [
+    "Boosts immune function",
+    "Supports collagen production",
+    "Great source of vitamin C"
+  ],
+  season: "Peak season from December to April"
+};
+
+FRUIT_FACTS.strawberry = {
+  nutrition: { calories: "49 kcal", fiber: "3g", vitamin_c: "97% DV" },
+  facts: [
+    "Strawberries have their seeds on the outside",
+    "Not true berries botanically",
+    "There are over 600 varieties"
+  ],
+  benefits: [
+    "Rich in antioxidants",
+    "Supports skin health",
+    "Low in calories"
+  ],
+  season: "Peak season from April to June"
+};
+
+FRUIT_FACTS.kiwi = {
+  nutrition: { calories: "42 kcal", fiber: "2.1g", vitamin_c: "154% DV" },
+  facts: [
+    "Originally called Chinese gooseberry",
+    "Contains more vitamin C than oranges",
+    "The skin is edible and nutritious"
+  ],
+  benefits: [
+    "Boosts immune system",
+    "Supports digestive health",
+    "Rich in vitamin C"
+  ],
+  season: "Available year-round"
+};
+
+FRUIT_FACTS.pineapple = {
+  nutrition: { calories: "50 kcal", fiber: "1.4g", vitamin_c: "79% DV" },
+  facts: [
+    "Takes 18-20 months to mature",
+    "Contains bromelain enzyme",
+    "Named for resembling pine cones"
+  ],
+  benefits: [
+    "Aids digestion",
+    "Supports immune function",
+    "Anti-inflammatory properties"
+  ],
+  season: "Peak season from March to July"
+};
+
+FRUIT_FACTS.mango = {
+  nutrition: { calories: "60 kcal", fiber: "1.6g", vitamin_c: "67% DV" },
+  facts: [
+    "National fruit of India",
+    "Over 1000 varieties worldwide",
+    "Related to cashews and pistachios"
+  ],
+  benefits: [
+    "Rich in vitamin A",
+    "Supports eye health",
+    "Boosts immune system"
+  ],
+  season: "Peak season from April to August"
+};
+
 function getFruitFacts(fruit) {
   return FRUIT_FACTS[fruit] || null;
 }
