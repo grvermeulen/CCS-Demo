@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fresh Apple - Fruit Shop</title>
+    <title>Fresh Mango - Fruit Shop</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -43,22 +43,22 @@
     </header>
     <main id="main-content" role="main">
       <div class="content-box" style="text-align: center">
-        <div style="font-size: 4rem" role="img" aria-label="Apple emoji">
-          🍏
+        <div style="font-size: 4rem" role="img" aria-label="Mango emoji">
+          🥭
         </div>
-        <h1>Apple</h1>
+        <h1>Mango</h1>
         <div class="product-price-info">
-          <span class="product-price">€2.99</span>
-          <span class="product-unit">per kg</span>
+          <span class="product-price">€1.99</span>
+          <span class="product-unit">per stuk</span>
         </div>
         <div class="product-desc" aria-label="Product description">
-          Keeps the doctor away (unless you throw it at them).
+          The king of fruits - sweet, creamy, and absolutely divine.
         </div>
         <div style="margin-top: 1.2rem">
           <button
             id="addToBasket"
             class="cart-action-btn"
-            aria-label="Add Apple to basket"
+            aria-label="Add Mango to basket"
           >
             Add to Basket
           </button>
@@ -70,11 +70,9 @@
     <script src="fruit-facts.js"></script>
     <script>
       document.getElementById("addToBasket").onclick = function () {
-        addToBasket("apple");
+        addToBasket("mango");
       };
-      
-      // Add facts section
-      document.getElementById("factsContainer").innerHTML = createFactsSection("apple");
+      document.getElementById("factsContainer").innerHTML = createFactsSection("mango");
       initFactsCarousel();
     </script>
   </body>
