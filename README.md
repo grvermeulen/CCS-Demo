@@ -3,7 +3,7 @@
 </div>
 
 
-# Setup  
+# Setup
 
 - Create accounts for:
   - [GitHub](https://github.com)
@@ -27,7 +27,7 @@
 
     3. Check for GitHub CLI and install if missing
 
-    4. Authenticate with GitHub (gh auth login)
+    4. Authenticate with GitHub using browser-based login (gh auth login --web) - this avoids interactive terminal prompts
 
     5. Download setup-github-template.ps1 from: https://raw.githubusercontent.com/grvermeulen/CCS-Demo/main/setup-github-template.ps1
 
@@ -91,7 +91,14 @@
 
 - Create GitHub API Token :
    
-  - **(Manual - Web UI):**
+  - **Option 1 (GitHub CLI - Browser-based, Recommended for Cursor IDE):**
+    1. Check if authenticated: `gh auth status`
+    2. If not authenticated, run: `gh auth login --web` (opens browser automatically)
+    3. If already authenticated but missing scopes, run: `gh auth refresh --web -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook`
+    4. Get your token: `gh auth token`
+    5. **Important:** Copy the token immediately - save it securely for n8n configuration
+  
+  - **Option 2 (Manual - Web UI):**
     1. Go to: https://github.com/settings/tokens
     2. Click "Generate new token" -> "Generate new token (classic)"
     3. Name your token (e.g., "n8n-workshop-token")
