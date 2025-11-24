@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smoothie Bundles - Fruit Shop</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header role="banner">
+        <div class="header-center">
+            <a href="index.html" class="logo" aria-label="Go to homepage">
+                <img src="img/fruit-shop-logo.webp" class="logo-img" alt="Fruit Shop Logo" />
+                <span class="products-text" style="text-align: center">
+                    View Products
+                </span>
+            </a>
+            <nav role="navigation" aria-label="Main navigation">
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="bundles.html">Bundles</a>
+                    <a href="personality-quiz.html" class="quiz-link">🌟 Fruit Quiz</a>
+                    <a href="subscription.html" class="subscription-link">🍎 Subscription</a>
+                    <a href="smoothie-bundles.html" class="smoothie-link active">🥤 Smoothie Bundles</a>
+                </div>
+                <a href="basket.html" class="basket-link" aria-label="View shopping basket" style="position: relative">
+                    <img src="img/basket-icon.png" class="basket-img" alt="Shopping basket icon" />
+                    <span class="basket-text">View shopping basket</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content" role="main">
+        <h1 class="products-title">Smoothie Bundles</h1>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem;">
+            Perfectly portioned fruit combinations for your daily vitamin boost!
+        </p>
+
+        <ul class="emoji-list" role="list" aria-label="Smoothie bundle list">
+            <li>
+                <div class="emoji-box" aria-label="Green Detox Bundle">🥬</div>
+                <h3>Green Detox</h3>
+                <p>Apple, Lemon, Spinach</p>
+                <button class="add-to-basket" onclick="addToBasket('Green Detox', 12)">Add to Basket ($12)</button>
+            </li>
+            <li>
+                <div class="emoji-box" aria-label="Berry Blast Bundle">🫐</div>
+                <h3>Berry Blast</h3>
+                <p>Strawberry, Blueberry, Banana</p>
+                <button class="add-to-basket" onclick="addToBasket('Berry Blast', 15)">Add to Basket ($15)</button>
+            </li>
+            <li>
+                <div class="emoji-box" aria-label="Tropical Paradise Bundle">🏝️</div>
+                <h3>Tropical Paradise</h3>
+                <p>Mango, Pineapple, Banana</p>
+                <button class="add-to-basket" onclick="addToBasket('Tropical Paradise', 14)">Add to Basket
+                    ($14)</button>
+            </li>
+        </ul>
+    </main>
+    <script src="shop.js"></script>
+    <script>
+        function addToBasket(name, price) {
+            // Simple mock function to match existing shop.js behavior if needed
+            alert(`Added ${name} to basket!`);
+        }
+    </script>
+</body>
+
+</html>
