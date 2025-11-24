@@ -27,7 +27,7 @@
 
     3. Check for GitHub CLI and install if missing
 
-    4. Authenticate with GitHub using browser-based login (gh auth login --web) - this avoids interactive terminal prompts
+    4. Authenticate with GitHub using browser-based login (echo y | gh auth login --web --git-protocol https --hostname github.com) - this avoids interactive terminal prompts
 
     5. Download setup-github-template.ps1 from: https://raw.githubusercontent.com/grvermeulen/CCS-Demo/main/setup-github-template.ps1
 

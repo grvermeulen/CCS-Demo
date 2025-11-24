@@ -26,7 +26,8 @@ Write-Host "Checking GitHub authentication..." -ForegroundColor Cyan
 $null = gh auth status 2>&1
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Not authenticated. Please authenticate with GitHub..." -ForegroundColor Yellow
-    gh auth login
+    Write-Host "This will open a browser for authentication (non-interactive friendly)." -ForegroundColor Cyan
+    "y" | gh auth login --web --git-protocol https --hostname github.com
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Authentication failed. Exiting." -ForegroundColor Red
         exit 1
