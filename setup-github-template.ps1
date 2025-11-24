@@ -26,7 +26,8 @@ Write-Host "Checking GitHub authentication..." -ForegroundColor Cyan
 $null = gh auth status 2>&1
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Not authenticated. Please authenticate with GitHub..." -ForegroundColor Yellow
-    gh auth login
+    Write-Host "This will open a browser for authentication (non-interactive friendly)." -ForegroundColor Cyan
+    "y" | gh auth login --web --git-protocol https --hostname github.com
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Authentication failed. Exiting." -ForegroundColor Red
         exit 1
@@ -231,82 +232,12 @@ if ($LASTEXITCODE -eq 0) {
 
 Write-Host ""
 
-# 6. Create GitHub API Token for n8n (optional)
+# 6. GitHub API Token for n8n
 Write-Host "=== GitHub API Token for n8n ===" -ForegroundColor Cyan
 Write-Host ""
-$createToken = Read-Host "Would you like to create/get a GitHub API token for n8n? (y/n)"
-if ($createToken -eq "y" -or $createToken -eq "Y") {
-    Write-Host "Creating GitHub API token with required scopes..." -ForegroundColor Cyan
-    Write-Host ""
-    
-    # Check authentication
-    $null = gh auth status 2>&1
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Not authenticated. Please authenticate first..." -ForegroundColor Yellow
-        gh auth login
-        if ($LASTEXITCODE -ne 0) {
-            Write-Host "Authentication failed. Skipping token creation." -ForegroundColor Red
-        }
-    }
-    
-    # Try to refresh authentication with required scopes
-    Write-Host "Refreshing authentication with required scopes..." -ForegroundColor Cyan
-    Write-Host "This will open a browser for you to authorize the new scopes." -ForegroundColor Yellow
-    Write-Host ""
-    
-    gh auth refresh -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook 2>&1 | Out-Null
-    
-    if ($LASTEXITCODE -eq 0) {
-        Write-Host "Authentication refreshed successfully!" -ForegroundColor Green
-        Write-Host ""
-        
-        # Get the token
-        Write-Host "Retrieving your GitHub API token..." -ForegroundColor Cyan
-        $token = gh auth token
-        if ($LASTEXITCODE -eq 0 -and $token) {
-            Write-Host ""
-            Write-Host "=== Your GitHub API Token ===" -ForegroundColor Green
-            Write-Host ""
-            Write-Host $token -ForegroundColor Yellow
-            Write-Host ""
-            Write-Host "⚠️  IMPORTANT: Save this token now! You'll need it for n8n configuration." -ForegroundColor Red
-            Write-Host "   This token will not be shown again." -ForegroundColor Red
-            Write-Host ""
-            Write-Host "Required scopes:" -ForegroundColor Cyan
-            Write-Host "  - repo (Full control of private repositories)" -ForegroundColor White
-            Write-Host "  - workflow (Update GitHub Action workflows)" -ForegroundColor White
-            Write-Host "  - admin:org (Full control of orgs and teams)" -ForegroundColor White
-            Write-Host "  - admin:repo_hook (Full control of repository hooks)" -ForegroundColor White
-            Write-Host "  - admin:org_hook (Full control of organization hooks)" -ForegroundColor White
-            Write-Host ""
-            
-            # Ask if user wants to copy to clipboard (Windows)
-            if ($IsWindows -or $env:OS -like "*Windows*") {
-                $copyToClipboard = Read-Host "Copy token to clipboard? (y/n)"
-                if ($copyToClipboard -eq "y" -or $copyToClipboard -eq "Y") {
-                    $token | Set-Clipboard
-                    Write-Host "Token copied to clipboard!" -ForegroundColor Green
-                }
-            }
-        } else {
-            Write-Host "Failed to retrieve token. You may need to create one manually." -ForegroundColor Yellow
-            Write-Host "Visit: https://github.com/settings/tokens" -ForegroundColor Cyan
-        }
-    } else {
-        Write-Host "Failed to refresh authentication with required scopes." -ForegroundColor Yellow
-        Write-Host ""
-        Write-Host "You can create a token manually:" -ForegroundColor Cyan
-        Write-Host "1. Go to: https://github.com/settings/tokens" -ForegroundColor White
-        Write-Host "2. Click 'Generate new token' -> 'Generate new token (classic)'" -ForegroundColor White
-        Write-Host "3. Name it (e.g., 'n8n-workshop-token')" -ForegroundColor White
-        Write-Host "4. Select scopes: repo, workflow, admin:org, admin:repo_hook, admin:org_hook" -ForegroundColor White
-        Write-Host "5. Click 'Generate token' and copy it immediately" -ForegroundColor White
-        Write-Host ""
-    }
-} else {
-    Write-Host "Skipping token creation. You can create one later if needed." -ForegroundColor Yellow
-    Write-Host "See README.md for instructions." -ForegroundColor Cyan
-}
+Write-Host "Next step: Create a GitHub API token for n8n manually." -ForegroundColor Yellow
+Write-Host "Please follow the instructions in README.md under 'Create GitHub API Token'." -ForegroundColor White
+Write-Host ""
 
 Write-Host ""
 Write-Host "=== Setup Complete! ===" -ForegroundColor Green
@@ -316,9 +247,7 @@ Write-Host ""
 Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "1. Continue with the rest of the setup in README.md" -ForegroundColor White
 Write-Host "2. Connect your Vercel account to this repository" -ForegroundColor White
-Write-Host "3. Import the n8n workflow and configure it" -ForegroundColor White
-if ($createToken -ne "y" -and $createToken -ne "Y") {
-    Write-Host "4. Create a GitHub API token for n8n (see README.md)" -ForegroundColor White
-}
+Write-Host "3. Create a GitHub API token for n8n (see README.md)" -ForegroundColor White
+Write-Host "4. Import the n8n workflow and configure it" -ForegroundColor White
 Write-Host ""
 

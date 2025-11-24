@@ -22,13 +22,22 @@ When a user asks to set up their GitHub repository, follow these steps:
      - Linux: Follow instructions at https://github.com/cli/cli/blob/trunk/docs/install_linux.md
      - Windows: `winget install --id GitHub.cli --silent --accept-package-agreements --accept-source-agreements`
 
-3. **Run the setup script:**
+3. **Authenticate with GitHub (if needed):**
+   - Check authentication: `gh auth status`
+   - If not authenticated, use browser-based login (platform-specific):
+     - **Windows PowerShell:** Run: `"y" | gh auth login --web --git-protocol https --hostname github.com`
+     - **Mac/Linux:** Run: `echo y | gh auth login --web --git-protocol https --hostname github.com`
+     - This opens a browser automatically (non-interactive friendly)
+     - User completes authentication in browser
+     - Wait for confirmation before proceeding
+
+4. **Run the setup script:**
    - Windows: `powershell -ExecutionPolicy Bypass -File .\setup-github-template.ps1`
    - Mac/Linux: `pwsh -File ./setup-github-template.ps1`
    - Handle any authentication prompts or errors gracefully
-   - Wait for user interaction if authentication is required
+   - If script requires interactive input, pause and guide user through manual steps
 
-4. **Verify the setup:**
+5. **Verify the setup:**
    - Confirm repository was created
    - Confirm issue was created
    - Provide the repository URL to the user
@@ -46,17 +55,25 @@ When a user asks to create a GitHub API token for n8n, follow these steps:
 
 1. **Check GitHub CLI authentication:**
    - Run: `gh auth status`
-   - If not authenticated, run: `gh auth login`
+   - If not authenticated, use browser-based login (non-interactive friendly):
+     - Run: `gh auth login --web`
+     - This will open a browser automatically
+     - User completes authentication in browser
+     - Wait for confirmation that authentication succeeded
 
-2. **Try to refresh authentication with required scopes:**
-   - Run: `gh auth refresh -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook`
-   - This will open a browser for user to authorize the new scopes
-   - Wait for user to complete authorization
+2. **Check if current token has required scopes:**
+   - Run: `gh auth status` to see current scopes
+   - If scopes are missing, refresh with browser-based method:
+     - Run: `gh auth refresh --web -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook`
+     - This will open a browser for user to authorize the new scopes
+     - Wait for user to complete authorization in browser
 
 3. **Get the token:**
    - Run: `gh auth token`
    - Display the token to the user
    - Warn them to save it securely (they'll need it for n8n)
+
+**Note:** If browser-based authentication fails or user prefers manual creation, guide them to the manual web UI method (see step 4 below).
 
 4. **If refresh fails or user prefers manual creation:**
    - Guide user to: https://github.com/settings/tokens
