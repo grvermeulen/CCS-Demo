@@ -94,14 +94,7 @@
 
 - Create GitHub API Token :
    
-  - **Option 1 (GitHub CLI - Browser-based, Recommended for Cursor IDE):**
-    1. Check if authenticated: `gh auth status`
-    2. If not authenticated, run: `gh auth login --web` (opens browser automatically)
-    3. If already authenticated but missing scopes, run: `gh auth refresh --web -s repo,workflow,admin:org,admin:repo_hook,admin:org_hook`
-    4. Get your token: `gh auth token`
-    5. **Important:** Copy the token immediately - save it securely for n8n configuration
-  
-  - **Option 2 (Manual - Web UI):**
+   - **(Manual - Web UI):**
     1. Go to: https://github.com/settings/tokens
     2. Click "Generate new token" -> "Generate new token (classic)"
     3. Name your token (e.g., "n8n-workshop-token")
@@ -116,19 +109,10 @@
     7. **Important:** Copy the token immediately - it's only shown once!
     8. Save it securely - you'll need it for n8n configuration
 
-- [Import the workflow from the GitHub repository (within n8n directory) in n8n.](https://docs.n8n.io/courses/level-one/chapter-6/)
-  - Create a new workflow.
-  - Use the "Import from File..." option which is under the ... menu (top right next to version history)
+- [Setup the workflow from the GitHub repository (within n8n directory) in n8n.](https://deltasure.app.n8n.cloud/form/b25ef12d-3026-4345-8130-4126dcd4ba8d)
+  - Go to the url and fill in the form. This will trigger the provisioning and setup of your n8n workflow. 
+  - Voila
 
-- Edit the n8n pipeline with all your own credentials to connect with GitHub, Airtop and OpenAI.
-  - All steps which need it should show an error icon.
-  - For all GitHub nodes change the repository owner to yourself.
-  - **For GitHub credentials in n8n:** Use the token you created above
- 
-- Change the node from "Start browser" to your workflow --> the name in the workflow list in the parameters must match the name of your n8n workflow
-
-- Activate your workflow within n8n.
-  - Switch the toggle at the top right to "Active"
 
 # Workshop
 
