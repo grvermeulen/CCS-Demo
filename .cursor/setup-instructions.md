@@ -24,8 +24,9 @@ When a user asks to set up their GitHub repository, follow these steps:
 
 3. **Authenticate with GitHub (if needed):**
    - Check authentication: `gh auth status`
-   - If not authenticated, use browser-based login:
-     - Run: `echo y | gh auth login --web --git-protocol https --hostname github.com`
+   - If not authenticated, use browser-based login (platform-specific):
+     - **Windows PowerShell:** Run: `"y" | gh auth login --web --git-protocol https --hostname github.com`
+     - **Mac/Linux:** Run: `echo y | gh auth login --web --git-protocol https --hostname github.com`
      - This opens a browser automatically (non-interactive friendly)
      - User completes authentication in browser
      - Wait for confirmation before proceeding
