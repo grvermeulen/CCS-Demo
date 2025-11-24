@@ -236,7 +236,6 @@ Write-Host ""
 Write-Host "=== GitHub API Token for n8n ===" -ForegroundColor Cyan
 Write-Host ""
 Write-Host "Next step: Create a GitHub API token for n8n manually." -ForegroundColor Yellow
-Write-Host "Please follow the instructions in README.md under 'Create GitHub API Token'." -ForegroundColor White
 Write-Host ""
 
 Write-Host ""
@@ -248,6 +247,6 @@ Write-Host "Next steps:" -ForegroundColor Yellow
 Write-Host "1. Continue with the rest of the setup in README.md" -ForegroundColor White
 Write-Host "2. Connect your Vercel account to this repository" -ForegroundColor White
 Write-Host "3. Create a GitHub API token for n8n (see README.md)" -ForegroundColor White
-Write-Host "4. Import the n8n workflow and configure it" -ForegroundColor White
+Write-Host "4. Fill out the n8n workflow form to configure it" -ForegroundColor White
 Write-Host ""
 
