@@ -196,10 +196,11 @@ input[type="text"]:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2.5rem;
+  gap: 1.5rem;
   list-style: none;
   padding: 0;
   margin: 3rem 0 0 0;
+  flex-wrap: wrap;
 }
 .emoji-box {
   display: flex;
@@ -254,6 +255,35 @@ input[type="text"]:focus {
   vertical-align: middle;
   display: inline-block;
   margin-right: 0.5rem;
+}
+
+.product-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #e53935;
+  margin-left: 0.5rem;
+}
+
+.product-unit {
+  font-size: 1rem;
+  color: #666;
+  margin-left: 0.3rem;
+}
+
+.product-price-info {
+  margin: 1rem 0;
+}
+
+.product-price-info .product-price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e53935;
+  margin-right: 0.5rem;
+}
+
+.product-price-info .product-unit {
+  font-size: 1.2rem;
+  color: #666;
 }
 #basketList li {
   background: none !important;
