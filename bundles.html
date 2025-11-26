@@ -42,74 +42,272 @@
       </div>
     </header>
     <main id="main-content" role="main">
-      <h1 class="products-title">Fruit Bundles</h1>
-      <div class="bundles-container">
-        <div class="bundle-card">
-          <h2>Healthy Mix</h2>
-          <div class="bundle-emojis">
-            <span role="img" aria-label="Apple">🍏</span>
-            <span role="img" aria-label="Banana">🍌</span>
+      <h1 class="products-title">🌍 World Fruit Bundles</h1>
+      <p class="page-subtitle">Discover fruits from different cultures and regions around the world!</p>
+      
+      <!-- Regional Filter Buttons -->
+      <div class="region-filters">
+        <button class="region-filter-btn active" data-region="all">All Regions 🌍</button>
+        <button class="region-filter-btn" data-region="mediterranean">Mediterranean 🌅</button>
+        <button class="region-filter-btn" data-region="tropical">Tropical 🏝️</button>
+        <button class="region-filter-btn" data-region="asia">Asia 🏮</button>
+        <button class="region-filter-btn" data-region="north america">North America 🦅</button>
+        <button class="region-filter-btn" data-region="worldwide">Worldwide 🌎</button>
+        <button class="region-filter-btn" data-region="europe">Europe 💕</button>
+      </div>
+
+      <!-- Regional Bundles Container -->
+      <div class="regional-bundles-container">
+        <!-- Mediterranean Bundle -->
+        <div class="regional-bundle-card" data-region="mediterranean">
+          <div class="bundle-header">
+            <span class="bundle-emoji">🌅</span>
+            <h2>Mediterranean Sunshine</h2>
+            <span class="bundle-region">Mediterranean</span>
           </div>
-          <p class="bundle-desc">Perfect for a healthy snack! Get an apple and banana together.</p>
+          <div class="bundle-fruits">
+            <span class="fruit-emoji" title="apple">🍏</span>
+            <span class="fruit-emoji" title="lemon">🍋</span>
+          </div>
+          <p class="bundle-description">Experience the warmth of the Mediterranean with crisp apples and zesty lemons, perfect for traditional recipes.</p>
+          <div class="cultural-context">
+            <p><em>Inspired by the sun-drenched orchards of Italy and Greece, where these fruits have been cultivated for centuries.</em></p>
+          </div>
+          <div class="traditional-recipe">
+            <p><strong>💡 Try this:</strong> Try making a Mediterranean apple-lemon tart!</p>
+          </div>
           <button
-            onclick="addBundle('healthy_mix')"
-            class="cart-action-btn"
-            aria-label="Add Healthy Mix bundle to basket"
+            onclick="addRegionalBundle('mediterranean')"
+            class="regional-bundle-btn"
+            aria-label="Add Mediterranean Sunshine bundle to basket"
           >
-            Add Bundle to Basket
+            Add Mediterranean Sunshine Bundle
           </button>
         </div>
 
-        <div class="bundle-card">
-          <h2>Citrus Lovers</h2>
-          <div class="bundle-emojis">
-            <span role="img" aria-label="Lemon">🍋</span>
-            <span role="img" aria-label="Apple">🍏</span>
+        <!-- Tropical Bundle -->
+        <div class="regional-bundle-card" data-region="tropical">
+          <div class="bundle-header">
+            <span class="bundle-emoji">🏝️</span>
+            <h2>Tropical Paradise</h2>
+            <span class="bundle-region">Tropical</span>
           </div>
-          <p class="bundle-desc">Fresh and tangy combination! Get a lemon and apple together.</p>
+          <div class="bundle-fruits">
+            <span class="fruit-emoji" title="banana">🍌</span>
+            <span class="fruit-emoji" title="lemon">🍋</span>
+          </div>
+          <p class="bundle-description">Transport yourself to tropical beaches with sweet bananas and tangy lemons.</p>
+          <div class="cultural-context">
+            <p><em>Celebrates the vibrant fruit cultures of the Caribbean and Southeast Asia.</em></p>
+          </div>
+          <div class="traditional-recipe">
+            <p><strong>💡 Try this:</strong> Perfect for tropical smoothies and banana-lemon bread!</p>
+          </div>
           <button
-            onclick="addBundle('citrus_lovers')"
-            class="cart-action-btn"
-            aria-label="Add Citrus Lovers bundle to basket"
+            onclick="addRegionalBundle('tropical')"
+            class="regional-bundle-btn"
+            aria-label="Add Tropical Paradise bundle to basket"
           >
-            Add Bundle to Basket
+            Add Tropical Paradise Bundle
           </button>
         </div>
 
-        <div class="bundle-card">
-          <h2>Tropical Party</h2>
-          <div class="bundle-emojis">
-            <span role="img" aria-label="Banana">🍌</span>
-            <span role="img" aria-label="Lemon">🍋</span>
+        <!-- Asian Garden Bundle -->
+        <div class="regional-bundle-card" data-region="asia">
+          <div class="bundle-header">
+            <span class="bundle-emoji">🏮</span>
+            <h2>Asian Garden</h2>
+            <span class="bundle-region">Asia</span>
           </div>
-          <p class="bundle-desc">Exotic flavor mix! Get a banana and lemon together.</p>
+          <div class="bundle-fruits">
+            <span class="fruit-emoji" title="apple">🍏</span>
+            <span class="fruit-emoji" title="banana">🍌</span>
+          </div>
+          <p class="bundle-description">Discover the Asian varieties and traditions surrounding these beloved fruits.</p>
+          <div class="cultural-context">
+            <p><em>Honoring the rich fruit cultivation traditions of Asia, from Japanese apple orchards to Southeast Asian banana plantations.</em></p>
+          </div>
+          <div class="traditional-recipe">
+            <p><strong>💡 Try this:</strong> Try tempura-style fruit fritters or Asian fruit salad!</p>
+          </div>
           <button
-            onclick="addBundle('tropical_party')"
-            class="cart-action-btn"
-            aria-label="Add Tropical Party bundle to basket"
+            onclick="addRegionalBundle('asian_fusion')"
+            class="regional-bundle-btn"
+            aria-label="Add Asian Garden bundle to basket"
           >
-            Add Bundle to Basket
+            Add Asian Garden Bundle
           </button>
         </div>
 
-        <div class="bundle-card">
-          <h2>Fruit Feast</h2>
-          <div class="bundle-emojis">
-            <span role="img" aria-label="Apple">🍏</span>
-            <span role="img" aria-label="Banana">🍌</span>
-            <span role="img" aria-label="Lemon">🍋</span>
+        <!-- American Orchard Bundle -->
+        <div class="regional-bundle-card" data-region="north america">
+          <div class="bundle-header">
+            <span class="bundle-emoji">🦅</span>
+            <h2>American Orchard</h2>
+            <span class="bundle-region">North America</span>
           </div>
-          <p class="bundle-desc">Try them all! Get one of each fruit at a special price.</p>
+          <div class="bundle-fruits">
+            <span class="fruit-emoji" title="apple">🍏</span>
+            <span class="fruit-emoji" title="lemon">🍋</span>
+          </div>
+          <p class="bundle-description">Classic American fruit combination perfect for traditional desserts and drinks.</p>
+          <div class="cultural-context">
+            <p><em>Celebrating American orchard traditions and the popularity of apple pie and lemonade.</em></p>
+          </div>
+          <div class="traditional-recipe">
+            <p><strong>💡 Try this:</strong> Perfect for apple pie with lemon zest or fresh lemonade!</p>
+          </div>
           <button
-            onclick="addBundle('fruit_feast')"
-            class="cart-action-btn"
-            aria-label="Add Fruit Feast bundle to basket"
+            onclick="addRegionalBundle('american_classic')"
+            class="regional-bundle-btn"
+            aria-label="Add American Orchard bundle to basket"
           >
-            Add Bundle to Basket
+            Add American Orchard Bundle
           </button>
+        </div>
+
+        <!-- Global Harmony Bundle -->
+        <div class="regional-bundle-card" data-region="worldwide">
+          <div class="bundle-header">
+            <span class="bundle-emoji">🌍</span>
+            <h2>Global Harmony</h2>
+            <span class="bundle-region">Worldwide</span>
+          </div>
+          <div class="bundle-fruits">
+            <span class="fruit-emoji" title="apple">🍏</span>
+            <span class="fruit-emoji" title="banana">🍌</span>
+            <span class="fruit-emoji" title="lemon">🍋</span>
+          </div>
+          <p class="bundle-description">A celebration of fruits loved across all continents and cultures.</p>
+          <div class="cultural-context">
+            <p><em>Represents the universal appeal of these fruits across different cultures and cuisines.</em></p>
+          </div>
+          <div class="traditional-recipe">
+            <p><strong>💡 Try this:</strong> Create an international fruit salad with honey and mint!</p>
+          </div>
+          <button
+            onclick="addRegionalBundle('global_harmony')"
+            class="regional-bundle-btn"
+            aria-label="Add Global Harmony bundle to basket"
+          >
+            Add Global Harmony Bundle
+          </button>
+        </div>
+
+        <!-- European Romance Bundle -->
+        <div class="regional-bundle-card" data-region="europe">
+          <div class="bundle-header">
+            <span class="bundle-emoji">💕</span>
+            <h2>European Romance</h2>
+            <span class="bundle-region">Europe</span>
+          </div>
+          <div class="bundle-fruits">
+            <span class="fruit-emoji" title="strawberry">🍓</span>
+            <span class="fruit-emoji" title="lemon">🍋</span>
+          </div>
+          <p class="bundle-description">A romantic combination celebrating European strawberry traditions and citrus elegance.</p>
+          <div class="cultural-context">
+            <p><em>Inspired by French patisseries and British garden parties where strawberries and lemon are cherished.</em></p>
+          </div>
+          <div class="traditional-recipe">
+            <p><strong>💡 Try this:</strong> Try strawberry lemon tarts or British strawberries and cream!</p>
+          </div>
+          <button
+            onclick="addRegionalBundle('european_romance')"
+            class="regional-bundle-btn"
+            aria-label="Add European Romance bundle to basket"
+          >
+            Add European Romance Bundle
+          </button>
+        </div>
+
+        <!-- Berry Harvest Bundle -->
+        <div class="regional-bundle-card" data-region="worldwide">
+          <div class="bundle-header">
+            <span class="bundle-emoji">🍓</span>
+            <h2>Berry Harvest Festival</h2>
+            <span class="bundle-region">Worldwide</span>
+          </div>
+          <div class="bundle-fruits">
+            <span class="fruit-emoji" title="strawberry">🍓</span>
+            <span class="fruit-emoji" title="apple">🍏</span>
+          </div>
+          <p class="bundle-description">Celebrate the joy of berry picking season with this sweet and crisp combination.</p>
+          <div class="cultural-context">
+            <p><em>Honoring harvest festivals worldwide where berries and orchard fruits are celebrated together.</em></p>
+          </div>
+          <div class="traditional-recipe">
+            <p><strong>💡 Try this:</strong> Perfect for strawberry apple crisp or fresh fruit salads!</p>
+          </div>
+          <button
+            onclick="addRegionalBundle('berry_harvest')"
+            class="regional-bundle-btn"
+            aria-label="Add Berry Harvest Festival bundle to basket"
+          >
+            Add Berry Harvest Festival Bundle
+          </button>
+        </div>
+
+        <!-- Spring Awakening Bundle -->
+        <div class="regional-bundle-card" data-region="worldwide">
+          <div class="bundle-header">
+            <span class="bundle-emoji">🌸</span>
+            <h2>Spring Awakening</h2>
+            <span class="bundle-region">Worldwide</span>
+          </div>
+          <div class="bundle-fruits">
+            <span class="fruit-emoji" title="strawberry">🍓</span>
+            <span class="fruit-emoji" title="banana">🍌</span>
+            <span class="fruit-emoji" title="lemon">🍋</span>
+          </div>
+          <p class="bundle-description">A vibrant mix representing the renewal and freshness of spring across cultures.</p>
+          <div class="cultural-context">
+            <p><em>Celebrating spring festivals worldwide where fresh fruits symbolize new beginnings and vitality.</em></p>
+          </div>
+          <div class="traditional-recipe">
+            <p><strong>💡 Try this:</strong> Create a spring smoothie bowl or fresh fruit parfait!</p>
+          </div>
+          <button
+            onclick="addRegionalBundle('spring_awakening')"
+            class="regional-bundle-btn"
+            aria-label="Add Spring Awakening bundle to basket"
+          >
+            Add Spring Awakening Bundle
+          </button>
+        </div>
+      </div>
+
+      <!-- Educational Section -->
+      <div class="educational-section">
+        <h2>🎓 Learn About Our Fruits</h2>
+        <p>Each fruit in our bundles has a rich cultural history and unique significance around the world. Click on any individual fruit below to learn more about its journey across cultures!</p>
+        <div class="fruit-learning-links">
+          <a href="product-apple.html" class="fruit-learn-btn">
+            <span class="fruit-emoji">🍏</span>
+            <span>Learn About Apples</span>
+          </a>
+          <a href="product-banana.html" class="fruit-learn-btn">
+            <span class="fruit-emoji">🍌</span>
+            <span>Learn About Bananas</span>
+          </a>
+          <a href="product-lemon.html" class="fruit-learn-btn">
+            <span class="fruit-emoji">🍋</span>
+            <span>Learn About Lemons</span>
+          </a>
+          <a href="product-strawberry.html" class="fruit-learn-btn">
+            <span class="fruit-emoji">🍓</span>
+            <span>Learn About Strawberries</span>
+          </a>
         </div>
       </div>
     </main>
     <script src="shop.js"></script>
+    <script src="fruit-facts.js"></script>
+    <script>
+      // Initialize regional bundle filtering when page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        initRegionalBundleFiltering();
+      });
+    </script>
   </body>
 </html> 
